@@ -1,25 +1,44 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+let scene, camera, renderer, controls;
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setAnimationLoop( animate );
-document.body.appendChild( renderer.domElement );
+function init() {
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color('#87CEEB'); 
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 1, 5); 
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    controls = new OrbitControls(camera, renderer.domElement);
+    document.body.appendChild(renderer.domElement); 
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1); 
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2); 
+    directionalLight.position.set(5, 5, 5);
+    scene.add(directionalLight);
+    const loader = new GLTFLoader();
+    loader.load(
+        '/Fox.gltf',
+        function (gltf) {
+            const model = gltf.scene;
+            model.scale.set(0.02, 0.02, 0.02); 
+            model.position.set(0, 0, 0);
+            scene.add(model);
+        },
+        function (xhr) {
+            console.log((Math.round(xhr.loaded / xhr.total * 100)) + '% loaded');
+        },
+    );
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-
-camera.position.z = 5;
-
-function animate( time ) {
-
-  cube.rotation.x = time / 2000;
-  cube.rotation.y = time / 1000;
-
-  renderer.render( scene, camera );
-
+    animate();
 }
+
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update(); 
+    renderer.render(scene, camera);
+}
+init();
