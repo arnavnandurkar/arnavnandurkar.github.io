@@ -1,22 +1,30 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 let scene, camera, renderer, controls;
 
 function init() {
     scene = new THREE.Scene();
-    scene.background = new THREE.Color('#87CEEB'); 
+    scene.background = new THREE.Color('#ffffff'); 
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     window.camera = camera;
-    camera.position.set(76, -24, -1050); 
+    camera.position.set(-19, -75, -1099); 
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
-    controls.target.set(72, -27, -1058);
+    controls.enablePan = true;
+    controls.enableZoom = true;
+    controls.target.set(70, -108, -1103);
     window.controls = controls;
-   
+    renderer.domElement.style.position = 'fixed';
+    renderer.domElement.style.top = '0';
+    renderer.domElement.style.left = '0';
+    renderer.domElement.style.zIndex = '-1';
     document.body.appendChild(renderer.domElement); 
     const ambientLight = new THREE.AmbientLight(0xffffff, 1); 
     scene.add(ambientLight);
@@ -30,7 +38,6 @@ function init() {
     valley.position.set(0, 0, 0); 
     scene.add(valley);
 });
-
 loader.load('/scene.gltf', function (gltf) {
     const house = gltf.scene;
     house.position.set(0, -80, -1110); 
@@ -38,7 +45,6 @@ loader.load('/scene.gltf', function (gltf) {
     house.rotation.set(0,0,0)
     scene.add(house);
 });
-
 loader.load('/tree.glb', function (gltf) {
     const treehouse = gltf.scene;
     treehouse.position.set(60, -120, -920);
@@ -46,6 +52,24 @@ loader.load('/tree.glb', function (gltf) {
 });
     animate();
 }
+function fly(newPosition, newTarget) {
+    gsap.to(camera.position, {
+        x: newPosition.x,
+        y: newPosition.y,
+        z: newPosition.z,
+        duration: 3,
+        ease: "power2.inOut"
+    });
+
+    gsap.to(controls.target, {
+        x: newTarget.x,
+        y: newTarget.y,
+        z: newTarget.z,
+        duration: 3,
+        ease: "power2.inOut"
+    });
+}
+
 function animate() {
     requestAnimationFrame(animate);
     controls.update(); 
@@ -53,3 +77,22 @@ function animate() {
 }
 init();
 
+controls.enablePan = false;
+controls.enableZoom = false;
+controls.enableRotate = false; 
+
+const tourTimeline = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".scroll-container", 
+        start: "top top",      
+        end: "bottom bottom", 
+        scrub: 1,              
+    }
+});
+
+
+tourTimeline.to(camera.position, { x: 15.2, y: 8.5, z: -3.4, ease: "power1.inOut" }, 0)
+            .to(controls.target, { x: 12.45, y: 3.12, z: -8.99, ease: "power1.inOut" }, 0);
+
+tourTimeline.to(camera.position, { x: 25.0, y: 15.0, z: 2.0, ease: "power1.inOut" }, 1)
+            .to(controls.target, { x: 15.0, y: 12.0, z: 0.0, ease: "power1.inOut" }, 1);
