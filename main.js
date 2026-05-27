@@ -90,9 +90,11 @@ const tourTimeline = gsap.timeline({
     }
 });
 
+tourTimeline.to(camera.position, { x: 15, y: -77, z: -1118, ease: "power1.inOut" }, 0)
+            .to(controls.target, { x: -10, y: -84, z: -1128, ease: "power1.inOut" }, 0);
 
-tourTimeline.to(camera.position, { x: 15.2, y: 8.5, z: -3.4, ease: "power1.inOut" }, 0)
-            .to(controls.target, { x: 12.45, y: 3.12, z: -8.99, ease: "power1.inOut" }, 0);
+tourTimeline.to(camera.position, { x: -2, y: -81, z: -1135, ease: "power1.inOut" }, 1)
+            .to(controls.target, { x: 12, y: -83, z: -1140, ease: "power1.inOut" }, 1);
 
-tourTimeline.to(camera.position, { x: 25.0, y: 15.0, z: 2.0, ease: "power1.inOut" }, 1)
-            .to(controls.target, { x: 15.0, y: 12.0, z: 0.0, ease: "power1.inOut" }, 1);
+tourTimeline.to(camera.position, { x: -20, y: -100, z: -800, ease: "power1.inOut" }, 2)
+            .to(controls.target, { x: -30, y: -110, z: -790, ease: "power1.inOut" }, 2);
