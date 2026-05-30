@@ -42,11 +42,11 @@ function init() {
 
 function createBridgeMenu() {
     const menuItems = [
-        { text: 'Blog', isLink: true, url: '#blog', x: 9, y: -78, z: -1117.4, rx: 0, ry: 1.3, rz: 0 },
-        { text: 'Photo<br>graphy', isLink: true, url: '#photography', x: 8.5, y: -78, z: -1114.9, rx: 0, ry: 1.4, rz: 0 },
-        { text: 'Home', isLink: true, url: '#home', x: 9.5, y: -78, z: -1120.2, rx: 0, ry: 1.3, rz: 0 },
-        { text: 'Projects', isLink: true, url: '#projects', x: 10.1, y: -78, z: -1123.2, rx: 0, ry: 1.25, rz: 0 },
-        { text: 'About', isLink: true, url: '#about', x: 10.9, y: -78, z: -1126.9, rx: 0, ry: 1.3, rz: 0 }
+        { text: 'BLOG', isLink: true, url: '#blog', x: 9, y: -78, z: -1117.4, rx: 0, ry: 1.3, rz: 0 },
+        { text: 'PHOTO<br>GRAPHY', isLink: true, url: '#photography', x: 8.5, y: -78, z: -1114.9, rx: 0, ry: 1.4, rz: 0 },
+        { text: 'HOME', isLink: true, url: '#home', x: 9.5, y: -78, z: -1120.2, rx: 0, ry: 1.3, rz: 0 },
+        { text: 'PROJECTS', isLink: true, url: '#projects', x: 10.1, y: -78, z: -1123.2, rx: 0, ry: 1.25, rz: 0 },
+        { text: 'ABOUT', isLink: true, url: '#about', x: 10.9, y: -78, z: -1126.9, rx: 0, ry: 1.3, rz: 0 }
     ];
     menuItems.forEach(item => {
         const div = document.createElement('div');

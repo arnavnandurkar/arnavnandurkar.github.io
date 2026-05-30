@@ -8,9 +8,9 @@
     </style>
   </head>
  <div class="scroll-container">
-    <section id="home" class="stop hero-section"><h1>Rivendell</h1></section>
+    <section id="home" class="stop hero-section"><h1 style="font-family:'Skyrim'">RIVENDELL</h1></section>
     
-    <section class="stop bridge-section"></section> <section id="blog" class="stop content-section"><h2>Blog</h2></section>
+    <section class="stop bridge-section"></section> <section id="blog" class="stop content-section" style="font-family:'Skyrim2'"><h2>Blog</h2></section>
     
     <section id="photography" class="stop content-section"><h2>Photography</h2></section>
     
@@ -26,6 +26,23 @@ html, body {
    margin: 0;
    height: 100%;
 }
+@font-face {
+    font-family: 'Skyrim';
+    src: url('/fonts/MagicCardsNormal.woff2') format('woff2'),
+        url('/fonts/MagicCardsNormal.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Skyrim2';
+    src: url('/fonts/FuturaCondensedPT-Medium.woff2') format('woff2'),
+        url('/fonts/FuturaCondensedPT-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
 #c {
    width: 100%;
    height: 100%;
@@ -39,7 +56,6 @@ body {
     margin: 0;
     overflow-x: hidden; 
 }
-
 .scroll-container {
     position: absolute;
     top: 0;
@@ -58,7 +74,7 @@ body {
 }
 
 .bridge-label {
-    font-family: 'Georgia', serif;
+    font-family: 'Skyrim', serif;
     color: white;
     text-align: center;
     user-select: none;
@@ -69,8 +85,8 @@ body {
 .bridge-label a {
     color: #ffffff;
     text-decoration: none;
+    font-family: 'Skyrim';
     font-size: 1rem;
-    font-weight: bold;
     letter-spacing: 0.1rem;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
     transition: color 0.3s ease, text-shadow 0.3s ease;
@@ -80,17 +96,6 @@ body {
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
 }
 
-.bridge-label h2 {
-    font-size: 1rem;
-    margin: 0;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
-}
 
-.bridge-label p {
-    font-size: 1rem;
-    max-width: 200px;
-    margin: 5px 0 0 0;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
-}
 </style>
 </html>
