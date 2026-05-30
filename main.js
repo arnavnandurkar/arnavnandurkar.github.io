@@ -42,11 +42,11 @@ function init() {
 
 function createBridgeMenu() {
     const menuItems = [
-        { text: 'Blog', isLink: true, url: '#blog', x: 9, y: -78, z: -1118.5, rx: 0, ry: 1.3, rz: 0 },
-        { text: 'Photo<br>graphy', isLink: true, url: '#photography', x: 8.5, y: -78, z: -1116.5, rx: 0, ry: 1.4, rz: 0 },
-        { text: 'Home', isLink: true, url: '#home', x: 9.5, y: -78, z: -1120.5, rx: 0, ry: 1.3, rz: 0 },
-        { text: 'Projects', isLink: true, url: '#projects', x: 10.1, y: -78, z: -1122.5, rx: 0, ry: 1.25, rz: 0 },
-        { text: 'About', isLink: true, url: '#about', x: 10.9, y: -78, z: -1124.5, rx: 0, ry: 1.3, rz: 0 }
+        { text: 'Blog', isLink: true, url: '#blog', x: 9, y: -78, z: -1117.4, rx: 0, ry: 1.3, rz: 0 },
+        { text: 'Photo<br>graphy', isLink: true, url: '#photography', x: 8.5, y: -78, z: -1114.9, rx: 0, ry: 1.4, rz: 0 },
+        { text: 'Home', isLink: true, url: '#home', x: 9.5, y: -78, z: -1120.2, rx: 0, ry: 1.3, rz: 0 },
+        { text: 'Projects', isLink: true, url: '#projects', x: 10.1, y: -78, z: -1123.2, rx: 0, ry: 1.25, rz: 0 },
+        { text: 'About', isLink: true, url: '#about', x: 10.9, y: -78, z: -1126.9, rx: 0, ry: 1.3, rz: 0 }
     ];
     menuItems.forEach(item => {
         const div = document.createElement('div');
@@ -84,23 +84,13 @@ createBridgeMenu();
       scene.background = texture;
     });
     const loader = new GLTFLoader();
-    loader.load('/skippers1.glb', function (gltf) {
-    const valley = gltf.scene;
-    valley.scale.set(1,1,1);
-    valley.position.set(0, 0, 0); 
-    scene.add(valley);
-});
-loader.load('/scene.gltf', function (gltf) {
+    
+loader.load('/test.glb', function (gltf) {
     const house = gltf.scene;
     house.position.set(0, -80, -1110); 
     house.scale.set(0.3, 0.3, 0.3); 
     house.rotation.set(0,0,0)
     scene.add(house);
-});
-loader.load('/tree.glb', function (gltf) {
-    const treehouse = gltf.scene;
-    treehouse.position.set(60, -120, -920);
-    scene.add(treehouse);
 });
     animate();
 }
@@ -144,8 +134,8 @@ const tourTimeline = gsap.timeline({
     }
 });
 
-tourTimeline.to(camera.position, { x: 15, y: -77, z: -1118, ease: "power1.inOut" }, 0)
-            .to(controls.target, { x: -10, y: -84, z: -1128, ease: "power1.inOut" }, 0)
+tourTimeline.to(camera.position, { x: 15, y: -78.7, z: -1119, ease: "power1.inOut" }, 0)
+            .to(controls.target, { x: -19, y: -77, z: -1129, ease: "power1.inOut" }, 0)
             .to('.bridge-label', { opacity: 1, ease: "power1.inOut" }, 0);
 
 tourTimeline.to(camera.position, { x: -2, y: -81, z: -1135, ease: "power1.inOut" }, 1)
