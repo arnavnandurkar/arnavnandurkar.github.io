@@ -12,17 +12,17 @@ gsap.registerPlugin(ScrollTrigger);
 function init() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color('#ffffff'); 
-    scene.fog = new THREE.Fog('#7fb6e9', 10, 500);
+    scene.fog = new THREE.Fog('#a4bacf', 20, 90);
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     window.camera = camera;
-    camera.position.set(-19, -75, -1099); 
+    camera.position.set(-9, -76, -1105); 
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.enablePan = true;
     controls.enableZoom = true;
-    controls.target.set(70, -108, -1103);
+    controls.target.set(70, -80, -1103);
     window.controls = controls;
     renderer.domElement.style.position = 'fixed';
     renderer.domElement.style.top = '0';
@@ -143,10 +143,11 @@ tourTimeline.to(camera.position, { x: -2, y: -81, z: -1135, ease: "power1.inOut"
             .to('.bridge-label', { opacity: 1, ease: "power1.inOut" }, 1);
 
 tourTimeline.to(camera.position, { x: 23, y: -75, z: -1123, ease: "power1.inOut" }, 2)
-            .to(controls.target, { x: 33, y: -80, z: -1113, ease: "power1.inOut" }, 2);
+            .to(controls.target, { x: 33, y: -80, z: -1113, ease: "power1.inOut" }, 2)
+            .to('.bridge-label', { opacity: 0, ease: "power1.inOut" }, 2);
 
-tourTimeline.to(camera.position, { x: -20, y: -140, z: -800, ease: "power1.inOut" }, 3)
-            .to(controls.target, { x: -22, y: -140, z: -820, ease: "power1.inOut" }, 3);
+tourTimeline.to(camera.position, { x: 30, y: -73.8, z: -1110, ease: "power1.inOut" }, 3)
+            .to(controls.target, { x: 40, y: -78.8, z: -1100, ease: "power1.inOut" }, 3);
 
 tourTimeline.to(camera.position, { x: -20, y: -140, z: -600, ease: "power1.inOut" }, 4)
             .to(controls.target, { x: -22, y: -140, z: -620, ease: "power1.inOut" }, 4);
