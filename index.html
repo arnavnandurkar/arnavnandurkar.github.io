@@ -7,24 +7,34 @@
       body { margin: 0; }
     </style>
   </head>
- <div class="scroll-container">
-    <section id="home" class="stop hero-section"><h1 style="font-family:'Skyrim'">RIVENDELL</h1></section>
-    
-    <section class="stop bridge-section"></section> <section id="blog" class="stop content-section" style="font-family:'Skyrim'  "><h1>Blog</h1></section>
-    
+  <body>
+    <div class="scroll-container">
+    <section class="stop hero-section"><h1 style="font-family:'Skyrim'">RIVENDELL</h1></section>
+    <section id="menu" class="stop bridge-section"></section>
+    <section id="blog" class="stop content-section" style="font-family:'Skyrim' "><h1>Blog</h1></section>
+    <section id="blog" class="stop content-section"></section>
+    <section id="blog" class="stop content-section"></section>
     <section id="photography" class="stop content-section"><h1 style="font-family:'Skyrim'">Photography</h1></section>
-    
     <section id="projects" class="stop content-section"><h1 style="font-family:'Skyrim'">Projects</h1></section>
-    
     <section id="about" class="stop content-section"><h1 style="font-family:'Skyrim'">About</h1></section>
 </div>
-  <body>
+<a href="#menu" class="fab-menu">MENU</a>
+<div class="parchment" style="display:none">
+    <button id="closemodal" class="closebutton">X</button>
+    <div id="modalcontent"></div>
+</div>
     <script type="module" src="/main.js"></script>
   </body>
   <style>
 html, body {
    margin: 0;
-   height: 100%;
+   overflow-x: hidden; 
+
+}
+.scroll-container {
+    width: 100%;
+    position: relative; 
+    z-index: 1;
 }
 @font-face {
     font-family: 'Skyrim';
@@ -52,19 +62,10 @@ html, body {
    left: 0;
    z-index: -1;
 }
-body {
-    margin: 0;
-    overflow-x: hidden; 
-}
-.scroll-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1;
-}
+
 .stop {
     height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,8 +86,8 @@ body {
 .bridge-label a {
     color: #ffffff;
     text-decoration: none;
-    font-family: 'Skyrim';
-    font-size: 1rem;
+    font-family: 'Skyrim2';
+    font-size: 1.5rem;
     letter-spacing: 0.1rem;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
     transition: color 0.3s ease, text-shadow 0.3s ease;
@@ -95,7 +96,65 @@ body {
     color: #d4a373; 
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
 }
+.fab-menu {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #0a1c2e;
+    color: #ffffff;
+    font-size: 1.3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    padding: 5px 5px;
+    font-family: 'Skyrim2', serif;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    z-index: 100;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
 
+.fab-menu:hover {
+    transform: translateY(-5px);
+    background-color: #000000;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 200;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.parchment {
+    background-color: #f4e4bc; 
+    color: #3e2723; 
+    width: 80%;
+    max-width: 800px;
+    height: 70vh;
+    padding: 40px;
+    border-radius: 5px;
+    position: relative;
+    font-family: 'Georgia', serif;
+    overflow-y: auto;
+    box-shadow: inset 0 0 50px rgba(139, 69, 19, 0.3), 0 10px 30px rgba(0,0,0,0.8);
+    border: 1px solid #c8a97e;
+}
+
+.closebutton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #8b4513;
+    cursor: pointer;
+}
 
 </style>
 </html>

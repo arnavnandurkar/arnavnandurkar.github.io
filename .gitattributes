@@ -1,3 +1,4 @@
 /public/test.glb filter=lfs diff=lfs merge=lfs -text
+/main.glb filter=lfs diff=lfs merge=lfs -text
 /final.glb filter=lfs diff=lfs merge=lfs -text
 *.glb filter=lfs diff=lfs merge=lfs -text
