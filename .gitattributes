@@ -1,7 +1,2 @@
-/public/test.glb filter=lfs diff=lfs merge=lfs -text
-<<<<<<< HEAD
-/main.glb filter=lfs diff=lfs merge=lfs -text
-/final.glb filter=lfs diff=lfs merge=lfs -text
-=======
->>>>>>> e906274e8c31ad97b2b4762938134443d53cdff7
-*.glb filter=lfs diff=lfs merge=lfs -text
+/public/main.glb filter=lfs diff=lfs merge=lfs -text
+/public/final.glb filter=lfs diff=lfs merge=lfs -text

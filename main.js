@@ -7,10 +7,7 @@ import { CSS3DRenderer, CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRe
 
 
 let scene, camera, renderer, controls, labelRenderer;
-<<<<<<< HEAD
 let narsil, anduril, pen;
-=======
->>>>>>> e906274e8c31ad97b2b4762938134443d53cdff7
 gsap.registerPlugin(ScrollTrigger);
 
 function init() {
@@ -45,21 +42,12 @@ function init() {
     document.body.appendChild(labelRenderer.domElement);
 
 function createBridgeMenu() {
-<<<<<<< HEAD
     const menuItems = [                       
         { text: 'BLOG', isLink: true, url: '#blog', x: 8.5, y: -78, z: -1115.1, rx: 0, ry: 1.3, rz: 0 },
         { text: 'PHOTO<br>GRAPHY', isLink: true, url: '#photography', x: 8.9, y: -78, z: -1117.5, rx: 0, ry: 1.4, rz: 0 },
         { text: 'HOME', isLink: true, url: '#home', x: 9.8, y: -78, z: -1120.19, rx: 0, ry: 1.3, rz: 0 },
         { text: 'PROJECTS', isLink: true, url: '#projects', x: 10.5, y: -78, z: -1122.9, rx: 0, ry: 1.25, rz: 0 },
         { text: 'ABOUT', isLink: true, url: '#about', x: 11.5, y: -78, z: -1125.592, rx: 0, ry: 1.3, rz: 0 }
-=======
-    const menuItems = [
-        { text: 'BLOG', isLink: true, url: '#blog', x: 9, y: -78, z: -1117.4, rx: 0, ry: 1.3, rz: 0 },
-        { text: 'PHOTO<br>GRAPHY', isLink: true, url: '#photography', x: 8.5, y: -78, z: -1114.9, rx: 0, ry: 1.4, rz: 0 },
-        { text: 'HOME', isLink: true, url: '#home', x: 9.5, y: -78, z: -1120.2, rx: 0, ry: 1.3, rz: 0 },
-        { text: 'PROJECTS', isLink: true, url: '#projects', x: 10.1, y: -78, z: -1123.2, rx: 0, ry: 1.25, rz: 0 },
-        { text: 'ABOUT', isLink: true, url: '#about', x: 10.9, y: -78, z: -1126.9, rx: 0, ry: 1.3, rz: 0 }
->>>>>>> e906274e8c31ad97b2b4762938134443d53cdff7
     ];
     menuItems.forEach(item => {
         const div = document.createElement('div');
@@ -81,13 +69,8 @@ function createBridgeMenu() {
         scene.add(labelObject);
     });
 }
-<<<<<<< HEAD
 
 createBridgeMenu();
-=======
-createBridgeMenu();
-
->>>>>>> e906274e8c31ad97b2b4762938134443d53cdff7
     const ambientLight = new THREE.AmbientLight(0xffffff, 1); 
     scene.add(ambientLight);
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2); 
@@ -101,7 +84,6 @@ createBridgeMenu();
       texture.colorSpace = THREE.SRGBColorSpace;
       scene.background = texture;
     });
-<<<<<<< HEAD
 const loader = new GLTFLoader();
     
     loader.load('./final.glb', function (gltf) {
@@ -141,17 +123,6 @@ const loader = new GLTFLoader();
         tourTimeline.to(pen.scale, { x: 0.1, y: 0.1, z: 0.1, duration: 0.2, ease: "back.out(1.7)" }, 2.8);
         ScrollTrigger.refresh();
     });
-=======
-    const loader = new GLTFLoader();
-    
-loader.load('/test.glb', function (gltf) {
-    const house = gltf.scene;
-    house.position.set(0, -80, -1110); 
-    house.scale.set(0.3, 0.3, 0.3); 
-    house.rotation.set(0,0,0)
-    scene.add(house);
-});
->>>>>>> e906274e8c31ad97b2b4762938134443d53cdff7
     animate();
 }
 function fly(newPosition, newTarget) {
@@ -194,7 +165,6 @@ const tourTimeline = gsap.timeline({
     }
 });
 
-<<<<<<< HEAD
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const clickableObjects = []; 
@@ -235,8 +205,6 @@ window.addEventListener('click', (event) => {
     }
 });
 
-=======
->>>>>>> e906274e8c31ad97b2b4762938134443d53cdff7
 tourTimeline.to(camera.position, { x: 15, y: -78.7, z: -1119, ease: "power1.inOut" }, 0)
             .to(controls.target, { x: -19, y: -77, z: -1129, ease: "power1.inOut" }, 0)
             .to('.bridge-label', { opacity: 1, ease: "power1.inOut" }, 0);
@@ -245,7 +213,6 @@ tourTimeline.to(camera.position, { x: -2, y: -81, z: -1135, ease: "power1.inOut"
             .to(controls.target, { x: 12, y: -83, z: -1140, ease: "power1.inOut" }, 1)
             .to('.bridge-label', { opacity: 1, ease: "power1.inOut" }, 1);
 
-<<<<<<< HEAD
 tourTimeline.to(camera.position, { x: 23, y: -75, z: -1123, ease: "power1.inOut" }, 4)
             .to(controls.target, { x: 33, y: -80, z: -1113, ease: "power1.inOut" }, 4)
             .to('.bridge-label', { opacity: 0, ease: "power1.inOut" }, 4);
@@ -256,14 +223,3 @@ tourTimeline.to(camera.position, { x: 30, y: -73.8, z: -1110, ease: "power1.inOu
 tourTimeline.to(camera.position, { x: -20, y: -140, z: -600, ease: "power1.inOut" }, 6)
             .to(controls.target, { x: -22, y: -140, z: -620, ease: "power1.inOut" }, 6);
 
-=======
-tourTimeline.to(camera.position, { x: 23, y: -75, z: -1123, ease: "power1.inOut" }, 2)
-            .to(controls.target, { x: 33, y: -80, z: -1113, ease: "power1.inOut" }, 2)
-            .to('.bridge-label', { opacity: 0, ease: "power1.inOut" }, 2);
-
-tourTimeline.to(camera.position, { x: 30, y: -73.8, z: -1110, ease: "power1.inOut" }, 3)
-            .to(controls.target, { x: 40, y: -78.8, z: -1100, ease: "power1.inOut" }, 3);
-
-tourTimeline.to(camera.position, { x: -20, y: -140, z: -600, ease: "power1.inOut" }, 4)
-            .to(controls.target, { x: -22, y: -140, z: -620, ease: "power1.inOut" }, 4);
->>>>>>> e906274e8c31ad97b2b4762938134443d53cdff7
