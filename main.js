@@ -4,10 +4,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CSS3DRenderer, CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
-
-
+import { marked } from 'marked';
 let scene, camera, renderer, controls, labelRenderer;
 let narsil, anduril, pen;
+let currentCategory = 'All';
+let currentSort = 'latest';
+
 gsap.registerPlugin(ScrollTrigger);
 
 function init() {
@@ -85,7 +87,6 @@ createBridgeMenu();
       scene.background = texture;
     });
 const loader = new GLTFLoader();
-    
     loader.load('./final.glb', function (gltf) {
         const house = gltf.scene;
         house.position.set(0, -80, -1110); 
@@ -119,7 +120,11 @@ const loader = new GLTFLoader();
         pen.position.set(0, -81.5, -1135.5); 
         pen.scale.set(0, 0, 0); 
         scene.add(pen);
-        clickableObjects.push(pen);
+        const hitboxGeometry = new THREE.BoxGeometry(4, 4, 4); 
+        const hitboxMaterial = new THREE.MeshBasicMaterial({ visible: false, color: 0xff0000 }); 
+        const hitbox = new THREE.Mesh(hitboxGeometry, hitboxMaterial);
+        pen.add(hitbox);
+        clickableObjects.push(hitbox);
         tourTimeline.to(pen.scale, { x: 0.1, y: 0.1, z: 0.1, duration: 0.2, ease: "back.out(1.7)" }, 2.8);
         ScrollTrigger.refresh();
     });
@@ -174,24 +179,139 @@ window.addEventListener('click', (event) => {
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(clickableObjects, true);
-
     if (intersects.length > 0) {
         openModal('blog'); 
     }
 });
+
+const blogPosts = [
+    {
+        id: 'test1',
+        title: "TEST",
+        date: "June 4th",
+        timestamp: new Date('2026-06-04').getTime(),
+        category: "test",
+        excerpt: "this is a test",
+        file: '/posts/test.md'
+    },
+    {
+        id: 'test2',
+        title: "Test",
+        date: "October 31",
+        timestamp: new Date('2026-10-31').getTime(),
+        category: "test2",
+        excerpt: "this is also a test",
+        file: '/posts/test2.md'
+    }
+];
+
 const pageData = {
-    'blog': `<h2>Blog</h2><p>Lorem ipsum</p>`,
-    'photography': `<h2>Photography</h2><p>Lorem ipsum</p>`
+    'photography': `<h2>Photography</h2><p>Lorem Ipsum Dolor Sit Amet</p>`,
+    'about': `<h2>About</h2><p>idk</p>`
+};
+
+function renderBlogIndex() {
+    let html = `
+        <h2 class="blogtitle">Blog</h2>
+        <div class="filter-bar">
+            <select id="category-filter" onchange="applyFilters()">
+                <option value="All" ${currentCategory === 'All' ? 'selected' : ''}>All Categories</option>
+                <option value="test" ${currentCategory === 'test' ? 'selected' : ''}>test</option>
+                <option value="test2" ${currentCategory === 'test2' ? 'selected' : ''}>test2</option>
+            </select>
+            
+            <select id="sort-filter" onchange="applyFilters()">
+                <option value="latest" ${currentSort === 'latest' ? 'selected' : ''}>Latest First</option>
+                <option value="oldest" ${currentSort === 'oldest' ? 'selected' : ''}>Oldest First</option>
+            </select>
+        </div>
+        <div class="list">
+    `;
+    let filteredPosts = blogPosts.filter(post => {
+        if (currentCategory === 'All') return true;
+        return post.category === currentCategory;
+    });
+    filteredPosts.sort((a, b) => {
+        if (currentSort === 'latest') return b.timestamp - a.timestamp;
+        if (currentSort === 'oldest') return a.timestamp - b.timestamp;
+    });
+    if (filteredPosts.length === 0) {
+        html += `<p style="text-align:center; font-family:'Skyrim2';">No posts found for this criteria.</p>`;
+    } else {
+        filteredPosts.forEach(post => {
+            html += `
+                <div class="blogitem" data-id="${post.id}">
+                    <div class="blogmeta">${post.date} | ${post.category}</div>
+                    <h3>${post.title}</h3>
+                    <p>${post.excerpt}</p>
+                    <button class="readmore" onclick="openArticle('${post.id}')">Read Blog ➔</button>
+                </div>
+            `;
+        });
+    }
+    
+    html += `</div>`;
+    return html;
+}
+window.applyFilters = function() {
+    currentCategory = document.getElementById('category-filter').value;
+    currentSort = document.getElementById('sort-filter').value;
+    const modalContent = document.getElementById('modalcontent');
+    modalContent.innerHTML = renderBlogIndex();
+};
+window.openArticle = async function(articleId) {
+    const post = blogPosts.find(p => p.id === articleId);
+    if (!post) return;
+    const modalContent = document.getElementById('modalcontent');
+    modalContent.innerHTML = `
+        <button class="back" onclick="returnToIndex()">⟵ Return to List</button>
+        <div class="blogcontent" style="text-align: center; margin-top: 3rem;">
+            <p style="font-style: italic; color: #8b6b4a;">Loading...</p>
+        </div>
+    `;
+
+    try {
+        const response = await fetch(post.file);
+        if (!response.ok) throw new Error("Could not find blog.");
+        const markdownText = await response.text();
+        const parsedHTML = marked.parse(markdownText);
+        modalContent.innerHTML = `
+            <button class="back" onclick="returnToIndex()">⟵ Return to List</button>
+            <div class="blogcontent">
+                <h2 class="blogtitle">${post.title}</h2>
+                <div class="metadata">Written on ${post.date} | Category: ${post.category}</div>
+                ${parsedHTML} 
+            </div>
+        `;
+        document.querySelector('.parchment').scrollTop = 0; 
+        
+    } catch (error) {
+        console.error(error);
+        modalContent.innerHTML = `
+            <button class="back" onclick="returnToIndex()">⟵ Return to List</button>
+            <div class="manuscript-content">
+                <p style="color: #8b0000; text-align: center;">Error loading post.</p>
+            </div>
+        `;
+    }
+};
+
+window.returnToIndex = function() {
+    const modalContent = document.getElementById('modalcontent');
+    modalContent.innerHTML = renderBlogIndex();
 };
 
 function openModal(pageName) {
     const modalOverlay = document.querySelector('.parchment'); 
     const modalContent = document.getElementById('modalcontent');
-    if (!modalOverlay || !modalContent) {
-        console.error("ERROR: JavaScript cannot find the .parchment or #modalcontent HTML tags!");
-        return; 
+
+    if (!modalOverlay || !modalContent) return;
+    if (pageName === 'blog') {
+        modalContent.innerHTML = renderBlogIndex();
+    } else {
+        modalContent.innerHTML = pageData[pageName];
     }
-    modalContent.innerHTML = pageData[pageName];
+    
     modalOverlay.style.display = 'block'; 
     document.body.style.overflow = 'hidden'; 
 }

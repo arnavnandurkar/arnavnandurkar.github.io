@@ -26,6 +26,7 @@
     <script type="module" src="/main.js"></script>
   </body>
   <style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 html, body {
    margin: 0;
    overflow-x: hidden; 
@@ -52,6 +53,9 @@ html, body {
     font-style: normal;
     font-display: swap;
 }
+
+
+
 
 #c {
    width: 100%;
@@ -138,8 +142,12 @@ html, body {
     height: 70vh;
     padding: 40px;
     border-radius: 5px;
-    position: relative;
-    font-family: 'Georgia', serif;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    font-family: 'Skyrim', serif;
     overflow-y: auto;
     box-shadow: inset 0 0 50px rgba(139, 69, 19, 0.3), 0 10px 30px rgba(0,0,0,0.8);
     border: 1px solid #c8a97e;
@@ -156,5 +164,171 @@ html, body {
     cursor: pointer;
 }
 
+.blogcontent {
+    color: #3e2723; 
+    line-height: 1.8;
+    font-size: 1.15rem;
+    font-family: 'IBM Plex Sans';
+}
+
+.blogtitle {
+    font-family: 'Skyrim', serif;
+    font-size: 2.5rem;
+    color: #5c3a21;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid #c8a97e;
+    padding-bottom: 1rem;
+}
+
+.metadata {
+    text-align: center;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #8b6b4a;
+    margin-bottom: 2rem;
+    font-family: 'Skyrim2';
+}
+
+.blogcontent h3 {
+    font-family: 'Skyrim2', serif;
+    font-size: 1.5rem;
+    color: #5c3a21;
+    margin-top: 2.5rem;
+}
+
+.dropcap {
+    float: left;
+    font-family: 'Skyrim', serif;
+    font-size: 4rem;
+    line-height: 0.8;
+    padding-top: 4px;
+    padding-right: 8px;
+    color: #8b0000;
+}
+
+.blogcontent blockquote {
+    font-style: italic;
+    font-size: 1.3rem;
+    margin: 2rem 0;
+    padding: 1rem 2rem;
+    border-left: 4px solid #8b0000;
+    background-color: rgba(139, 69, 19, 0.05);
+}
+
+.bloglist {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.bloglist li {
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.bloglist li::before {
+    content: "|"; 
+    position: absolute;
+    left: 0;
+    color: #8b0000;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.blogitem {
+    border-bottom: 1px dashed rgba(139, 69, 19, 0.3);
+    padding-bottom: 1.5rem;
+    transition: transform 0.2s ease;
+}
+
+.blogitem:hover {
+    transform: translateX(10px); 
+}
+
+.blogmeta {
+    font-size: 0.85rem;
+    color: #8b6b4a;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.blogitem h3 {
+    font-family: 'Skyrim2', serif;
+    font-size: 1.8rem;
+    color: #5c3a21;
+    margin: 0 0 0.5rem 0;
+}
+
+.blogitem p {
+    font-family: 'Skyrim2';
+    color: #4a3b32;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+}
+.readmore {
+    background: none;
+    border: none;
+    color: #8b0000;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.readmore:hover {
+    text-decoration: underline;
+}
+
+.back {
+    background: none;
+    border: none;
+    color: #8b6b4a;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.back:hover {
+    color: #8b0000;
+}
+
+.filter-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+.filter-bar select {
+    background-color: transparent;
+    border: 1px solid #8b6b4a;
+    color: #5c3a21;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+}
+
+.filter-bar select:hover {
+    background-color: rgba(139, 69, 19, 0.05);
+}
+
+.filter-bar select option {
+    background-color: #f4e4bc; /* Matches the parchment */
+    color: #3e2723;
+}
 </style>
 </html>
