@@ -85,7 +85,12 @@ createBridgeMenu();
       texture.mapping = THREE.EquirectangularReflectionMapping;
       texture.colorSpace = THREE.SRGBColorSpace;
       scene.background = texture;
+      scene.environment = texture;
     });
+const swordflash = new THREE.PointLight(0xffaa00, 0, 20);
+swordflash.position.set(0.6, -81.7, -1135.3); 
+scene.add(swordflash);
+
 const loader = new GLTFLoader();
     loader.load('./final.glb', function (gltf) {
         const house = gltf.scene;
@@ -96,28 +101,30 @@ const loader = new GLTFLoader();
     }); 
     loader.load('./narsil.glb', function (gltf) {
         narsil = gltf.scene;
-        narsil.position.set(0, -81.7, -1135.5); 
-        narsil.scale.set(0.3, 0.3, 0.3);
+        narsil.position.set(0.6, -81.7, -1135.3); 
+        narsil.scale.set(0.35, 0.35, 0.35);
         narsil.rotation.set(0,1.8,0)
         scene.add(narsil);
 
         narsil.children.forEach((shard) => {
             tourTimeline.to(shard.position, { x: 0, y: 0, z: 0, duration: 0.3, ease: "back.out(1.2)" }, 2);
             tourTimeline.to(shard.rotation, { x: 0, y: 0, z: 0, duration: 0.3, ease: "power2.inOut" }, 2);
+            tourTimeline.to(swordflash, { intensity: 100, duration: 0.1, yoyo: true, repeat: 1 }, 2.4);
         });
         tourTimeline.to(narsil.scale, { x: 0, y: 0, z: 0, duration: 0.01 }, 2.4);
     });
     loader.load('./anduril.glb', function (gltf) {
         anduril = gltf.scene;
-        anduril.position.set(0, -81.6, -1135.5); 
+        anduril.position.set(0.4, -81.7, -1136.5); 
         anduril.scale.set(0, 0, 0); 
+        anduril.rotation.set(-1.6,0,0.15);
         scene.add(anduril);
-        tourTimeline.to(anduril.scale, { x: 0.01, y: 0.01, z: 0.01, duration: 0.01 }, 2.4);
-        tourTimeline.to(anduril.scale, { x: 0, y: 0, z: 0, duration: 0.2, ease: "power2.in" }, 2.5);
+        tourTimeline.to(anduril.scale, { x: 0.017, y: 0.017, z: 0.017, duration: 0.01 }, 2.4);
+        tourTimeline.to(anduril.scale, { x: 0, y: 0, z: 0, duration: 0.1, ease: "power2.in" }, 2.5);
     });
     loader.load('./pen.glb', function (gltf) {
         pen = gltf.scene;
-        pen.position.set(0, -81.5, -1135.5); 
+        pen.position.set(0.3, -81.5, -1135.7); 
         pen.scale.set(0, 0, 0); 
         scene.add(pen);
         const hitboxGeometry = new THREE.BoxGeometry(4, 4, 4); 
@@ -125,7 +132,15 @@ const loader = new GLTFLoader();
         const hitbox = new THREE.Mesh(hitboxGeometry, hitboxMaterial);
         pen.add(hitbox);
         clickableObjects.push(hitbox);
-        tourTimeline.to(pen.scale, { x: 0.1, y: 0.1, z: 0.1, duration: 0.2, ease: "back.out(1.7)" }, 2.8);
+        tourTimeline.to(pen.scale, { x: 0.1, y: 0.1, z: 0.1, duration: 0.2, ease: "back.out(1.7)" }, 2.6);
+        gsap.to(pen.position, { 
+        y: "-=0.3",       
+        duration: 1.5,    
+        yoyo: true,       
+        repeat: -1,       
+        ease: "sine.inOut", 
+        delay: 3.5        
+    });
         ScrollTrigger.refresh();
     });
     animate();
@@ -329,7 +344,7 @@ tourTimeline.to(camera.position, { x: 15, y: -78.7, z: -1119, ease: "power1.inOu
             .to(controls.target, { x: -19, y: -77, z: -1129, ease: "power1.inOut" }, 0)
             .to('.bridge-label', { opacity: 1, ease: "power1.inOut" }, 0);
 
-tourTimeline.to(camera.position, { x: -2, y: -81, z: -1135, ease: "power1.inOut" }, 1)
+tourTimeline.to(camera.position, { x: 0.2, y: -81, z: -1135.3, ease: "power1.inOut" }, 1)
             .to(controls.target, { x: 12, y: -83, z: -1140, ease: "power1.inOut" }, 1)
             .to('.bridge-label', { opacity: 1, ease: "power1.inOut" }, 1);
 
