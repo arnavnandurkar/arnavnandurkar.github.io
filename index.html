@@ -9,28 +9,45 @@
   </head>
   <body>
     <div class="scroll-container">
-    <section class="stop hero-section"><h1 style="font-family:'Skyrim'">RIVENDELL</h1></section>
+    <section class="stop hero-section" id="home"><h1 style="font-family:'Skyrim'; word-spacing: 1rem; font-weight:normal">redacted</h1>
+    <h2 style="font-family:Skyrim2; font-weight:normal">Welcome to the website of redacted: aspiring physicist, amateur writer, photographer and programmer.<br>Check out my blog, photography and projects!</p>
+    <h1 style="font-family:Skyrim2; font-weight:normal">Scroll  further  to  explore.</h3>
+    </section>
+
     <section id="menu" class="stop bridge-section"></section>
-    <section id="blog" class="stop content-section" style="font-family:'Skyrim' "><h1>Blog</h1></section>
+    
+    <section id="blog" class="stop content-section" style="font-family:'Skyrim'"><h1>Blog</h1>
+        <h2 style="font-family:Skyrim2; font-weight:normal">Scroll further</h3>
+    </section>
     <section id="blog" class="stop content-section"></section>
     <section id="blog" class="stop content-section"></section>
-    <section id="photography" class="stop content-section"><h1 style="font-family:'Skyrim'">Photography</h1></section>
+
+<section id="photography" class="stop content-section">
+    <h1 style="font-family:'Skyrim'">Photography</h1>
+</section>
+
     <section id="projects" class="stop content-section"><h1 style="font-family:'Skyrim'">Projects</h1></section>
     <section id="about" class="stop content-section"><h1 style="font-family:'Skyrim'">About</h1></section>
 </div>
 <a href="#menu" class="fab-menu">MENU</a>
-<div class="parchment" style="display:none">
+
+<div class="websitecontentmodal" style="display:none">
     <button id="closemodal" class="closebutton">X</button>
     <div id="modalcontent"></div>
 </div>
     <script type="module" src="/main.js"></script>
   </body>
   <style>
+
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 html, body {
    margin: 0;
-   overflow-x:q hidden; 
+   overflow-x: hidden; 
+   cursor: url('cursor.cur'), auto;
+}
 
+a:hover {
+  cursor: url('cursorhover.ani'), pointer;
 }
 .scroll-container {
     width: 100%;
@@ -41,7 +58,6 @@ html, body {
     font-family: 'Skyrim';
     src: url('/fonts/MagicCardsNormal.woff2') format('woff2'),
         url('/fonts/MagicCardsNormal.woff') format('woff');
-    font-weight: 500;
     font-style: normal;
     font-display: swap; 
 }
@@ -49,13 +65,9 @@ html, body {
     font-family: 'Skyrim2';
     src: url('/fonts/FuturaCondensedPT-Medium.woff2') format('woff2'),
         url('/fonts/FuturaCondensedPT-Medium.woff') format('woff');
-    font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
-
-
-
 
 #c {
    width: 100%;
@@ -104,7 +116,7 @@ html, body {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background-color: #0a1c2e;
+    background-color: #683f11;
     color: #ffffff;
     font-size: 1.3rem;
     border-radius: 50px;
@@ -134,7 +146,7 @@ html, body {
     align-items: center;
 }
 
-.parchment {
+.websitecontentmodal {
     background-color: #f4e4bc; 
     color: #3e2723; 
     width: 80%;
@@ -173,6 +185,7 @@ html, body {
 
 .blogtitle {
     font-family: 'Skyrim', serif;
+    word-spacing: 1rem;
     font-size: 2.5rem;
     color: #5c3a21;
     text-align: center;
@@ -184,7 +197,7 @@ html, body {
 .metadata {
     text-align: center;
     font-style: italic;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     color: #8b6b4a;
     margin-bottom: 2rem;
     font-family: 'Skyrim2';
@@ -245,10 +258,7 @@ html, body {
     border-bottom: 1px dashed rgba(139, 69, 19, 0.3);
     padding-bottom: 1.5rem;
     transition: transform 0.2s ease;
-}
-
-.blogitem:hover {
-    transform: translateX(10px); 
+    font-family:'Skyrim2';
 }
 
 .blogmeta {
@@ -269,7 +279,7 @@ html, body {
     font-family: 'Skyrim2';
     color: #4a3b32;
     margin-bottom: 1rem;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
 }
 .readmore {
     background: none;
