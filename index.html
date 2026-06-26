@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
     <title>Arnav Nandurkar</title>
     <style>
       body { margin: 0; }
@@ -9,25 +10,25 @@
   </head>
   <body>
     <div class="scroll-container">
-    <section class="stop hero-section" id="home"><h1 style="font-family:'Skyrim'; word-spacing: 1rem; font-weight:normal">redacted</h1>
-    <h2 style="font-family:Skyrim2; font-weight:normal">Welcome to the website of redacted: aspiring physicist, amateur writer, photographer and programmer.<br>Check out my blog, photography and projects!</p>
+    <section class="stop hero-section" id="home"><h1 style="font-family:'Skyrim'; word-spacing: 1rem; font-weight:normal">ARNAV NANDURKAR</h1>
+    <h2 style="font-family:Skyrim2; font-weight:normal">Welcome to the website of Arnav Nandurkar: aspiring physicist, amateur writer, photographer and programmer.<br>Check out my blog, photography and projects!</p>
     <h1 style="font-family:Skyrim2; font-weight:normal">Scroll  further  to  explore.</h3>
     </section>
 
     <section id="menu" class="stop bridge-section"></section>
     
-    <section id="blog" class="stop content-section" style="font-family:'Skyrim'"><h1>Blog</h1>
+    <section id="blog" class="stop content-section" style="font-family:'Skyrim';font-weight:normal"><h1>Blog</h1>
         <h2 style="font-family:Skyrim2; font-weight:normal">Scroll further</h3>
     </section>
     <section id="blog" class="stop content-section"></section>
     <section id="blog" class="stop content-section"></section>
 
 <section id="photography" class="stop content-section">
-    <h1 style="font-family:'Skyrim'">Photography</h1>
+    <h1 style="font-family:'Skyrim'; font-weight:normal">Photography</h1>
 </section>
 
-    <section id="projects" class="stop content-section"><h1 style="font-family:'Skyrim'">Projects</h1></section>
-    <section id="about" class="stop content-section"><h1 style="font-family:'Skyrim'">About</h1></section>
+    <section id="projects" class="stop content-section"><h1 style="font-family:'Skyrim'; font-weight:normal">Projects</h1></section>
+    <section id="about" class="stop content-section"><h1 style="font-family:'Skyrim'; font-weight:normal">About</h1></section>
 </div>
 <a href="#menu" class="fab-menu">MENU</a>
 
@@ -37,308 +38,4 @@
 </div>
     <script type="module" src="/main.js"></script>
   </body>
-  <style>
-
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
-html, body {
-   margin: 0;
-   overflow-x: hidden; 
-   cursor: url('cursor.cur'), auto;
-}
-
-a:hover {
-  cursor: url('cursorhover.ani'), pointer;
-}
-.scroll-container {
-    width: 100%;
-    position: relative; 
-    z-index: 1;
-}
-@font-face {
-    font-family: 'Skyrim';
-    src: url('/fonts/MagicCardsNormal.woff2') format('woff2'),
-        url('/fonts/MagicCardsNormal.woff') format('woff');
-    font-style: normal;
-    font-display: swap; 
-}
-@font-face {
-    font-family: 'Skyrim2';
-    src: url('/fonts/FuturaCondensedPT-Medium.woff2') format('woff2'),
-        url('/fonts/FuturaCondensedPT-Medium.woff') format('woff');
-    font-style: normal;
-    font-display: swap;
-}
-
-#c {
-   width: 100%;
-   height: 100%;
-   display: block;
-   position: fixed;
-   top: 0;
-   left: 0;
-   z-index: -1;
-}
-
-.stop {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 10%;
-    color: white; 
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8); 
-}
-
-.bridge-label {
-    font-family: 'Skyrim', serif;
-    color: white;
-    text-align: center;
-    user-select: none;
-    transition: transform 0.2s ease;
-    opacity: 0;
-}
-
-.bridge-label a {
-    color: #ffffff;
-    text-decoration: none;
-    font-family: 'Skyrim2';
-    font-size: 1.5rem;
-    letter-spacing: 0.1rem;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-.bridge-label a:hover {
-    color: #d4a373; 
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px  1px 0 #000, 1px  1px 0 #000;
-}
-.fab-menu {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: #683f11;
-    color: #ffffff;
-    font-size: 1.3rem;
-    border-radius: 50px;
-    text-decoration: none;
-    padding: 5px 5px;
-    font-family: 'Skyrim2', serif;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    z-index: 100;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.fab-menu:hover {
-    transform: translateY(-5px);
-    background-color: #000000;
-}
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 200;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.websitecontentmodal {
-    background-color: #f4e4bc; 
-    color: #3e2723; 
-    width: 80%;
-    max-width: 800px;
-    height: 70vh;
-    padding: 40px;
-    border-radius: 5px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    font-family: 'Skyrim', serif;
-    overflow-y: auto;
-    box-shadow: inset 0 0 50px rgba(139, 69, 19, 0.3), 0 10px 30px rgba(0,0,0,0.8);
-    border: 1px solid #c8a97e;
-}
-
-.closebutton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #8b4513;
-    cursor: pointer;
-}
-
-.blogcontent {
-    color: #3e2723; 
-    line-height: 1.8;
-    font-size: 1.15rem;
-    font-family: 'IBM Plex Sans';
-}
-
-.blogtitle {
-    font-family: 'Skyrim', serif;
-    word-spacing: 1rem;
-    font-size: 2.5rem;
-    color: #5c3a21;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    border-bottom: 2px solid #c8a97e;
-    padding-bottom: 1rem;
-}
-
-.metadata {
-    text-align: center;
-    font-style: italic;
-    font-size: 1.2rem;
-    color: #8b6b4a;
-    margin-bottom: 2rem;
-    font-family: 'Skyrim2';
-}
-
-.blogcontent h3 {
-    font-family: 'Skyrim2', serif;
-    font-size: 1.5rem;
-    color: #5c3a21;
-    margin-top: 2.5rem;
-}
-
-.dropcap {
-    float: left;
-    font-family: 'Skyrim', serif;
-    font-size: 4rem;
-    line-height: 0.8;
-    padding-top: 4px;
-    padding-right: 8px;
-    color: #8b0000;
-}
-
-.blogcontent blockquote {
-    font-style: italic;
-    font-size: 1.3rem;
-    margin: 2rem 0;
-    padding: 1rem 2rem;
-    border-left: 4px solid #8b0000;
-    background-color: rgba(139, 69, 19, 0.05);
-}
-
-.bloglist {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.bloglist li {
-    margin-bottom: 0.8rem;
-    position: relative;
-    padding-left: 1.5rem;
-}
-
-.bloglist li::before {
-    content: "|"; 
-    position: absolute;
-    left: 0;
-    color: #8b0000;
-}
-
-.list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.blogitem {
-    border-bottom: 1px dashed rgba(139, 69, 19, 0.3);
-    padding-bottom: 1.5rem;
-    transition: transform 0.2s ease;
-    font-family:'Skyrim2';
-}
-
-.blogmeta {
-    font-size: 0.85rem;
-    color: #8b6b4a;
-    font-style: italic;
-    margin-bottom: 0.5rem;
-}
-
-.blogitem h3 {
-    font-family: 'Skyrim2', serif;
-    font-size: 1.8rem;
-    color: #5c3a21;
-    margin: 0 0 0.5rem 0;
-}
-
-.blogitem p {
-    font-family: 'Skyrim2';
-    color: #4a3b32;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-}
-.readmore {
-    background: none;
-    border: none;
-    color: #8b0000;
-    font-family: 'Georgia', serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    cursor: pointer;
-    padding: 0;
-}
-
-.readmore:hover {
-    text-decoration: underline;
-}
-
-.back {
-    background: none;
-    border: none;
-    color: #8b6b4a;
-    font-family: 'Georgia', serif;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-bottom: 2rem;
-    padding: 0;
-    transition: color 0.2s ease;
-}
-
-.back:hover {
-    color: #8b0000;
-}
-
-.filter-bar {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(139, 69, 19, 0.2);
-}
-
-.filter-bar select {
-    background-color: transparent;
-    border: 1px solid #8b6b4a;
-    color: #5c3a21;
-    font-family: 'Georgia', serif;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    outline: none;
-}
-
-.filter-bar select:hover {
-    background-color: rgba(139, 69, 19, 0.05);
-}
-
-.filter-bar select option {
-    background-color: #f4e4bc; 
-    color: #3e2723;
-}
-</style>
 </html>

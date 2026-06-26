@@ -18,24 +18,57 @@ const tooltips = [];
 const clickableObjects = []; 
 const photoGalleries = [
     {
-        id: 'test',
-        title: "test",
-        date: "22 July 2026",
-        excerpt: "test",
-        images: ['/photos/1.jpg', '/photos/2.JPG', '/photos/3.JPG'] 
+        id: 'Bhigwan',
+        title: "Aquatic birds at Bhigwan, Maharashtra",
+        date: "22 February 2022",
+        excerpt: "A collection of photos of water birds taken at Bhigwan, Maharashtra.",
+        images: ['/photos/bhigwan/1.jpg', '/photos/bhigwan/2.JPG', '/photos/bhigwan/3.JPG', '/photos/bhigwan/4.JPG', '/photos/bhigwan/5.jpg', '/photos/bhigwan/6.jpg', '/photos/bhigwan/7.jpg', '/photos/bhigwan/8.jpg',
+            '/photos/bhigwan/9.jpg', '/photos/bhigwan/10.jpg', '/photos/bhigwan/11.JPG', '/photos/bhigwan/12.JPG', '/photos/bhigwan/13.JPG', '/photos/bhigwan/14.JPG', '/photos/bhigwan/15.JPG', '/photos/bhigwan/16.JPG',
+            '/photos/bhigwan/17.JPG'
+        ] 
     },
     {
-        id: 'test2',
-        title: "test2",
-        date: "13 April 2026",
-        excerpt: "another test",
-        images: ['/photos/4.JPG', '/photos/5.jpg']
+        id: 'Ranthambore',
+        title: "Ranthambore National Park 2024",
+        date: "May 2024",
+        excerpt: "Tigers and other Indian wildlife and birds in Ranthambore National Park, Rajasthan",
+        images: ['/photos/ranthambore/1.JPG', '/photos/ranthambore/2.JPG', '/photos/ranthambore/3.JPG', '/photos/ranthambore/4.JPG', '/photos/ranthambore/5.JPG', '/photos/ranthambore/6.JPG', '/photos/ranthambore/7.JPG', '/photos/ranthambore/8.JPG',
+            '/photos/ranthambore/9.JPG', '/photos/ranthambore/10.JPG', '/photos/ranthambore/11.JPG', '/photos/ranthambore/12.JPG', '/photos/ranthambore/13.JPG', '/photos/ranthambore/14.JPG', '/photos/ranthambore/15.JPG', '/photos/ranthambore/16.JPG',
+            '/photos/ranthambore/17.JPG', '/photos/ranthambore/18.JPG'
+        ]
+    },
+     {
+        id: 'Pune',
+        title: "The best of Pune urban wildlife",
+        date: "2020-2025",
+        excerpt: "A selection of my best shots of birds in Pune, India, mostly taken from my house.",
+        images: ['photos/pune1/1.jpg', 'photos/pune1/2.JPG', 'photos/pune1/3.JPG']
+    },
+    {
+        id: 'Tadoba',
+        title: "Tadoba National Park 2022",
+        date: "May 2022",
+        excerpt: "Tigers and other Indian wildlife at Tadoba National Park, Maharashtra.",
+        images: ['/photos/tadoba/1.JPG', '/photos/tadoba/2.JPG', '/photos/tadoba/3.JPG', '/photos/tadoba/4.JPG',
+            '/photos/tadoba/5.JPG', '/photos/tadoba/6.JPG', '/photos/tadoba/7.JPG', '/photos/tadoba/8.JPG',
+            '/photos/tadoba/9.JPG'
+        ]
+    },
+    {
+        id: 'Tamhini',
+        title: "Tamhini Valley, the Sahyadri Ranges",
+        date: "9 April 2023",
+        excerpt: "Birds of the Sahyadri Ranges. These were taken at a photography hide around a pond in the Tamhini Valley near Pune.",
+        images: ['/photos/tamhini/1.jpg', '/photos/tamhini/2.jpg', '/photos/tamhini/3.jpg','/photos/tamhini/4.jpg',
+            '/photos/tamhini/5.jpg','/photos/tamhini/6.jpg','/photos/tamhini/7.jpg',
+            '/photos/tamhini/8.jpg','/photos/tamhini/9.jpg','/photos/tamhini/10.jpg'
+        ]
     }
 ];
 
 function init() {
     scene = new THREE.Scene();
-    scene.background = new THREE.Color('#a02e2e');
+    scene.background = new THREE.Color('#ffffff');
     scene.fog = new THREE.Fog('#a4bacf', 20, 90);
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     window.camera = camera;
@@ -137,21 +170,20 @@ loader.load('./rivendell.glb', function (gltf) {
         narsil.rotation.set(0,1.8,0)
         scene.add(narsil);
         narsil.children.forEach((shard) => {
-            tourTimeline.to(shard.position, { x: 0, y: 0, z: 0, duration: 0.3, ease: "back.out(1.2)" }, 2);
-            tourTimeline.to(shard.rotation, { x: 0, y: 0, z: 0, duration: 0.3, ease: "power2.inOut" }, 2);
+            tourTimeline.to(shard.position, { x: 0, y: 1, z: 0, duration: 0.3, ease: "back.out(1.2)" }, 2);
             tourTimeline.to(swordflash, { intensity: 100, duration: 0.1, yoyo: true, repeat: 1 }, 2.4);
         });
         tourTimeline.to(narsil.scale, { x: 0, y: 0, z: 0, duration: 0.01 }, 2.4); 
-        tourTimeline.call(() => deletemodel(narsil), null, 2.5);
         checkandkilldracomalfoy();
     });
     loader.load('./anduril.glb', function (gltf) {
         anduril = gltf.scene;
-        anduril.position.set(0.4, -81.7, -1136.5); 
+        anduril.position.set(0.4, -81.4, -1136.5); 
         anduril.scale.set(0, 0, 0); 
         anduril.rotation.set(-1.6,0,0.15);
         scene.add(anduril);
         tourTimeline.to(anduril.scale, { x: 0.021, y: 0.021, z: 0.021, duration: 0.01 }, 2.4);
+        tourTimeline.to(anduril.rotation, {x: -1.6, y: 1, z: 0, duration: 0.1}, 2.45)
         tourTimeline.to(anduril.scale, { x: 0, y: 0, z: 0, duration: 0.1, ease: "power2.in" }, 2.5);
         checkandkilldracomalfoy();
     });
@@ -180,27 +212,32 @@ loader.load('./rivendell.glb', function (gltf) {
         checkandkilldracomalfoy();
     });
 
-
     photoGroup = new THREE.Group();
-    photoGroup.position.set(27, -77, -1118); 
+    photoGroup.position.set(26.7, -77, -1119.2);
+    photoGroup.userData.globalOpacity = 0; 
     scene.add(photoGroup);
 
-    photoGalleries.forEach((gallery, index) => {
-        const angle = (index / photoGalleries.length) * Math.PI * 2;
+    photoGalleries.slice(0, 4).forEach((gallery, index) => {
+        const maxPhotos = Math.min(photoGalleries.length, 4);
+        const angle = (index / maxPhotos) * Math.PI * 2;
         const texture = textureloader.load(gallery.images[0]);
-        const planeGeo = new THREE.PlaneGeometry(3, 2.6);
-        const planeMat = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+        const planeGeo = new THREE.PlaneGeometry(2, 1.6);
+        const planeMat = new THREE.MeshStandardMaterial({ 
+            map: texture, side: THREE.DoubleSide, 
+            roughness: 0.8, metalness: 0.1, transparent: true,
+            opacity: 0
+        });
         const photoMesh = new THREE.Mesh(planeGeo, planeMat);
-        photoMesh.position.x = Math.cos(angle) * 4; 
-        photoMesh.position.z = Math.sin(angle) * 4;
+        photoMesh.position.x = Math.cos(angle) * 2.5; 
+        photoMesh.position.z = Math.sin(angle) * 2.5;
         photoMesh.rotation.y = -angle + Math.PI / 2;
         photoMesh.userData.targetPage = 'photography';
         clickableObjects.push(photoMesh);
         photoGroup.add(photoMesh);
     });
 
-createTooltip("blog-prompt", "Click for Blog", 1.2, -81, -1135.7); 
-createTooltip("photo-prompt", "Click for Gallery", 25, -77, -1117);
+createTooltip("blog-prompt", "Click on the pen!", 1.2, -81, -1135.7); 
+createTooltip("photo-prompt", "Click on the photos!", 26.5, -75.5, -1119.5);
 
     animate();
 }
@@ -231,6 +268,17 @@ function animate() {
     controls.update(); 
     renderer.render(scene, camera);
     labelRenderer.render(scene, camera);
+
+    if (photoGroup) {
+        photoGroup.rotation.y += 0.0015; 
+        const time = Date.now() * 0.001;
+        photoGroup.position.y = -77 + Math.sin(time * 1.5) * 0.1; 
+        photoGroup.children.forEach(child => {
+            child.material.opacity = photoGroup.userData.globalOpacity;
+            child.visible = photoGroup.userData.globalOpacity > 0.01;
+        });
+    }
+
 }
 
 const tourTimeline = gsap.timeline({
@@ -255,13 +303,26 @@ window.addEventListener('click', (event) => {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
-    
+
+    const modal = document.querySelector('.websitecontentmodal');
+    if (modal && modal.style.display === 'block') return;
+
     const intersects = raycaster.intersectObjects(clickableObjects, true);
     if (intersects.length > 0) {
         const targetPage = intersects[0].object.userData.targetPage;
         
         if (targetPage) {
             window.openModal(targetPage); 
+        }
+    }
+});
+
+window.addEventListener('click', (event) => {
+if (event.target.id === 'closemodal') {
+        const modalOverlay = document.querySelector('.websitecontentmodal');
+        if (modalOverlay) {
+            modalOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto'; 
         }
     }
 });
@@ -348,7 +409,7 @@ window.openArticle = async function(articleId) {
     modalContent.innerHTML = `
         <button class="back" onclick="returnToIndex()">← Return to List</button>
         <div class="blogcontent" style="text-align: center; margin-top: 3rem;">
-            <p style="font-style: italic; color: #8b6b4a;">Loading...</p>
+            <p style="font-style: italic; color: #aaaaaa;">Loading...</p>
         </div>
     `;
 
@@ -392,16 +453,15 @@ function renderPhotographyIndex() {
         photoGalleries.forEach(gallery => {
             const previewImg = gallery.images[0]; 
             html += `
-                <div class="blogitem" style="display: flex; gap: 20px; align-items: center; border-bottom: 1px dashed rgba(139, 69, 19, 0.3); padding-bottom: 1.5rem; margin-bottom: 1.5rem;">
-                    
-                    <div style="flex-shrink: 0; width: 120px; height: 80px; overflow: hidden; border-radius: 4px; border: 2px solid #c8a97e;">
+                <div class="blogitem" style="display: flex; gap: 20px; align-items: center; padding-bottom: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="flex-shrink: 0; width: 120px; height: 80px; overflow: hidden; border-radius: 4px; border: 2px solid #c2c2c2;">
                         <img src="${previewImg}" style="width: 100%; height: 100%; object-fit: cover;" alt="${gallery.title}">
                     </div>
                     
                     <div>
                         <div class="blogmeta">${gallery.date}</div>
-                        <h3 style="margin: 0 0 0.5rem 0; font-family: 'Skyrim2', serif; font-size: 1.8rem; color: #5c3a21;">${gallery.title}</h3>
-                        <p style="font-family: 'Skyrim2'; color: #4a3b32; margin-bottom: 1rem; font-size: 1.2rem;">${gallery.excerpt}</p>
+                        <h3>${gallery.title}</h3>
+                        <p>${gallery.excerpt}</p>
                         <button class="readmore" onclick="openGallery('${gallery.id}')">View Gallery →</button>
                     </div>
                 </div>
@@ -422,12 +482,12 @@ window.openGallery = function(galleryId) {
         <button class="back" onclick="returnToGalleryIndex()">← Return to Galleries</button>
         <div class="blogcontent">
             <h2 class="blogtitle">${gallery.title}</h2>
-            <div class="metadata">Published on ${gallery.date}</div>
+            <div class="metadata">${gallery.date}</div>
             
             <div style="display: flex; justify-content: center; margin-bottom: 20px;">
                 <img id="main-gallery-image" src="${firstImg}" 
                 style="max-width: 100%; max-height: 50vh; 
-                border: 2px solid #c8a97e; 
+                border: 2px solid #e2e2e2; 
                 border-radius: 4px; 
                 box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
                 transition: opacity 0.2s ease-in-out;">
@@ -439,7 +499,7 @@ window.openGallery = function(galleryId) {
         html += `
             <img src="${imgSrc}" onclick="changeMainImage('${imgSrc}')" 
                  style="height: 60px; width: 90px; object-fit: cover; border: 2px solid transparent; border-radius: 4px; cursor: pointer; transition: transform 0.2s;" 
-                 onmouseover="this.style.transform='scale(1.1)'; this.style.borderColor='#8b0000';" 
+                 onmouseover="this.style.transform='scale(1.1)'; this.style.borderColor='#ffffff';" 
                  onmouseout="this.style.transform='scale(1)'; this.style.borderColor='transparent';">
         `;
     });
@@ -480,31 +540,6 @@ window.openModal = function(pageName) {
     document.body.style.overflow = 'hidden'; 
 
 };
-window.addEventListener('click', (event) => {
-    if (event.target.id === 'closemodal') {
-        const modalOverlay = document.querySelector('.websitecontentmodal');
-        if (modalOverlay) {
-            modalOverlay.style.display = 'none';
-            document.body.style.overflow = 'auto'; 
-        }
-    }
-});
-
-function deletemodel(modelGroup) {
-    modelGroup.traverse((child) => {
-        if (child.isMesh) {
-            child.geometry.dispose(); 
-            if (child.material) {
-                if (Array.isArray(child.material)) {
-                    child.material.forEach(mat => disposeMaterial(mat));
-                } else {
-                    disposeMaterial(child.material);
-                }
-            }
-        }
-    });
-    scene.remove(modelGroup);
-}
 
 function disposeMaterial(mat) {
     mat.dispose();
@@ -518,8 +553,8 @@ function createTooltip(id, text, x, y, z) {
     div.style.opacity = '0'; 
     div.style.transition = 'opacity 0.3s ease'; 
     div.style.fontFamily = "'Skyrim2', serif";
-    div.style.color = "#d4a373"; 
-    div.style.fontSize = "70px"; 
+    div.style.color = "#ffffff"; 
+    div.style.fontSize = "100px"; 
     div.style.letterSpacing = "2px";
     div.style.textShadow = "-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000"; 
     div.style.pointerEvents = "none"; 
@@ -527,7 +562,7 @@ function createTooltip(id, text, x, y, z) {
 
     const labelObject = new CSS3DObject(div);
     labelObject.position.set(x, y, z);
-    labelObject.scale.set(0.004, 0.004, 0.004); 
+    labelObject.scale.set(0.0035, 0.0035, 0.0035); 
     
     scene.add(labelObject);
     tooltips.push(labelObject); 
@@ -539,20 +574,26 @@ tourTimeline.to(camera.position, { x: 15, y: -78.7, z: -1119, ease: "power1.inOu
 
 tourTimeline.to(camera.position, { x: -2, y: -81, z: -1135.3, ease: "power1.inOut" }, 1)
             .to(controls.target, { x: 50, y: -83, z: -1150, ease: "power1.inOut" }, 1)
-            .to('.bridge-label', { opacity: 1, ease: "power1.inOut" }, 1);  
-
+            .to('.bridge-label', { opacity: 1, ease: "power1.inOut" }, 1)
+            .to('.bridge-label', { opacity: 0, ease: "power1.inOut" }, 1.5);
+            
 tourTimeline.to('#blog-prompt', { opacity: 1, ease: "power1.inOut" }, 2.5);
 
-tourTimeline.to(camera.position, { x: 23, y: -75, z: -1123, ease: "power1.inOut" }, 4)
+tourTimeline.to(camera.position, { x: 23.5, y: -76, z: -1122.5, ease: "power1.inOut" }, 4)
             .to(controls.target, { x: 33, y: -80, z: -1113, ease: "power1.inOut" }, 4)
-            .to('.bridge-label', { opacity: 0, ease: "power1.inOut" }, 4);
+          
 tourTimeline.to('#blog-prompt', { opacity: 0, ease: "power1.inOut" }, 3.5);
 
 tourTimeline.to('#photo-prompt', { opacity: 1, ease: "power1.inOut" }, 4);
 
-tourTimeline.to(camera.position, { x: 25, y: -73.8, z: -1137, ease: "power1.inOut" }, 5)
-            .to(controls.target, { x: 35, y: -78.8, z: -1127, ease: "power1.inOut" }, 5);
+tourTimeline.to(photoGroup.userData, { globalOpacity: 1, ease: "power1.inOut" }, 4);
 
-tourTimeline.to(camera.position, { x: -20, y: -140, z: -600, ease: "power1.inOut" }, 6)
-            .to(controls.target, { x: -22, y: -140, z: -620, ease: "power1.inOut" }, 6);
-tourTimeline.to('#photo-prompt', { opacity: 0, ease: "power1.inOut" }, 6);
+tourTimeline.to(photoGroup.userData, { globalOpacity: 0, ease: "power1.inOut" }, 5);
+
+tourTimeline.to('#photo-prompt', { opacity: 0, ease: "power1.inOut" }, 5);
+
+tourTimeline.to(camera.position, { x: 0, y: -68, z: -1120, ease: "power1.inOut" }, 5)
+            .to(controls.target, { x: 0, y: -69, z: -1050, ease: "power1.inOut" }, 5);
+
+tourTimeline.to(camera.position, { x: 28, y: -76, z: -1133, ease: "power1.inOut" }, 6)
+            .to(controls.target, { x: 38, y: -73, z: -1123, ease: "power1.inOut" }, 6);
