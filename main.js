@@ -11,9 +11,29 @@ let narsil, anduril, pen;
 let currentCategory = 'All';
 let currentSort = 'latest';
 let photoGroup;
+let projectList = [];
+let projectGroup;
 
 gsap.registerPlugin(ScrollTrigger);
+const literaturePosts = [
+    {
+        id: 'test',
+        title: "test",
+        date: "29 June 2026",
+        excerpt: "test",
+        file: '/literature/test.md' 
+    }
+];
 
+const otherPosts = [
+    {
+        id: 'test',
+        title: "test",
+        date: "29 June 2026",
+        excerpt: "test",
+        file: '/other/test.md'
+    }
+];
 const tooltips = [];
 const clickableObjects = []; 
 const photoGalleries = [
@@ -82,6 +102,7 @@ function init() {
     renderer.domElement.style.top = '0';
     renderer.domElement.style.left = '0';
     renderer.domElement.style.zIndex = '-1';
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     document.body.appendChild(renderer.domElement); 
     labelRenderer = new CSS3DRenderer();
     labelRenderer.setSize(window.innerWidth, window.innerHeight);
@@ -150,7 +171,7 @@ loader.setDRACOLoader(dracoLoader);
 let modelsLoaded = 0;
     function checkandkilldracomalfoy() {
         modelsLoaded++;
-        if (modelsLoaded === 4) { 
+        if (modelsLoaded === 8) { 
             dracoLoader.dispose();
         }
     }
@@ -212,10 +233,96 @@ loader.load('./rivendell.glb', function (gltf) {
         checkandkilldracomalfoy();
     });
 
+    loader.load('./camera.glb', function (gltf) {
+        const cameraModel = gltf.scene;
+        cameraModel.position.set(30, -74.5, -1130); 
+        cameraModel.scale.set(6, 6, 6);
+        cameraModel.rotation.set(0, 4, 0);
+        scene.add(cameraModel);
+        cameraModel.traverse((child) => {
+            if (child.isMesh) {
+                child.userData.isExternalLink = true;
+                child.userData.url = 'https://instagram.com/nandurkararnav';
+                clickableObjects.push(child);
+            }
+        });
+        gsap.to(cameraModel.position, { y: "-=0.4", duration: 1.8, yoyo: true, repeat: -1, ease: "sine.inOut", delay: Math.random() * 2 });
+        checkandkilldracomalfoy();
+    });
+    loader.load('./scroll.glb', function (gltf) {
+        const scrollModel = gltf.scene;
+        scrollModel.position.set(30, -75, -1130);
+        scrollModel.rotation.set(0, 5, 1.4);
+        scrollModel.scale.set(0.1, 0.1, 0.1);
+        scene.add(scrollModel);
+
+        scrollModel.traverse((child) => {
+            if (child.isMesh) {
+                child.userData.targetPage = 'credits'; 
+                clickableObjects.push(child)
+            }
+        });
+        gsap.to(scrollModel.position, { y: "-=0.4", duration: 1.8, yoyo: true, repeat: -1, ease: "sine.inOut", delay: Math.random() * 2 });
+        checkandkilldracomalfoy();
+    });
+    loader.load('./globe.glb', function (gltf) {
+        const globeModel = gltf.scene;
+        globeModel.position.set(31, -75, -1132);
+        globeModel.scale.set(0.2, 0.2, 0.2);
+        globeModel.rotation.set(0, 1, 0);
+        scene.add(globeModel);
+
+        globeModel.traverse((child) => {
+            if (child.isMesh) {
+                child.userData.targetPage = 'location';
+                clickableObjects.push(child);
+            }
+        });
+        gsap.to(globeModel.position, { y: "-=0.4", duration: 1.8, yoyo: true, repeat: -1, ease: "sine.inOut", delay: Math.random() * 2 });
+        checkandkilldracomalfoy();
+    });
+    loader.load('./phone.glb', function (gltf) {
+        const phoneModel = gltf.scene;
+        phoneModel.position.set(31, -76, -1133);
+        phoneModel.scale.set(10, 10, 10);
+        phoneModel.rotation.set(0, 1.3, 0);
+        scene.add(phoneModel);
+
+        phoneModel.traverse((child) => {
+            if (child.isMesh) {
+                child.userData.targetPage = 'contact';
+                clickableObjects.push(child);
+            }
+        });
+        gsap.to(phoneModel.position, { y: "-=0.4", duration: 1.8, yoyo: true, repeat: -1, ease: "sine.inOut", delay: Math.random() * 2 });
+        checkandkilldracomalfoy();
+    });
+
+   
     photoGroup = new THREE.Group();
     photoGroup.position.set(26.7, -77, -1119.2);
     photoGroup.userData.globalOpacity = 0; 
     scene.add(photoGroup);
+
+    const archMat = new THREE.MeshBasicMaterial({ visible: false, color: 0xff0000, wireframe: true }); 
+    const archGeo = new THREE.BoxGeometry(0.5, 0.8, 0.5); 
+    const githubArch = new THREE.Mesh(archGeo, archMat);
+    githubArch.position.set(9.95, -68.1, -1107.3); 
+    githubArch.userData.targetPage = 'github';
+    clickableObjects.push(githubArch);
+    scene.add(githubArch);
+    const litArch = new THREE.Mesh(archGeo, archMat);
+    litArch.position.set(10.7, -68.1, -1107.3); 
+    litArch.rotation.y = -0.5; 
+    litArch.userData.targetPage = 'literature';
+    clickableObjects.push(litArch);
+    scene.add(litArch);
+    const otherArch = new THREE.Mesh(archGeo, archMat);
+    otherArch.position.set(9.2, -68.1, -1107.3); 
+    otherArch.rotation.y = 0.5; 
+    otherArch.userData.targetPage = 'other';
+    clickableObjects.push(otherArch);
+    scene.add(otherArch);
 
     photoGalleries.slice(0, 4).forEach((gallery, index) => {
         const maxPhotos = Math.min(photoGalleries.length, 4);
@@ -238,8 +345,17 @@ loader.load('./rivendell.glb', function (gltf) {
 
 createTooltip("blog-prompt", "Click on the pen!", 1.2, -81, -1135.7); 
 createTooltip("photo-prompt", "Click on the photos!", 26.5, -75.5, -1119.5);
+createTooltip("github-prompt", "Software", 9.8, -68.4, -1105.6); 
+createTooltip("lit-prompt", "Literature", 12, -68.4, -1104); 
+createTooltip("other-prompt", "Other", 7.4, -68.4, -1104);
+createTooltip("insta-prompt", "Instagram", 30, -73.5, -1130); 
+createTooltip("credits-prompt", "Credits", 29, -75.2, -1130); 
+createTooltip("location-prompt", "Location", 31, -74, -1132); 
+createTooltip("contact-prompt", "Contact", 32, -75, -1133);
 
-    animate();
+fetchGitHubRepos();
+
+animate();
 }
 
 function fly(newPosition, newTarget) {
@@ -260,6 +376,15 @@ function fly(newPosition, newTarget) {
     });
 }
 
+window.addEventListener('resize', onWindowResize, false);
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    labelRenderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+}
+
 function animate() {
     if (renderer.getContext().isContextLost()) return; 
     requestAnimationFrame(animate);
@@ -278,7 +403,6 @@ function animate() {
             child.visible = photoGroup.userData.globalOpacity > 0.01;
         });
     }
-
 }
 
 const tourTimeline = gsap.timeline({
@@ -299,24 +423,30 @@ controls.enableRotate = false;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-window.addEventListener('click', (event) => {
+window.addEventListener('pointerup', (event) => {
+    if (event.button !== 0 && event.pointerType === 'mouse') return;
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     raycaster.setFromCamera(mouse, camera);
-
     const modal = document.querySelector('.websitecontentmodal');
     if (modal && modal.style.display === 'block') return;
-
     const intersects = raycaster.intersectObjects(clickableObjects, true);
     if (intersects.length > 0) {
-        const targetPage = intersects[0].object.userData.targetPage;
-        
-        if (targetPage) {
+        const clickedObject = intersects[0].object;
+        if (clickedObject.userData.isExternalLink) {
+            window.open(clickedObject.userData.url, '_blank');
+            return;
+        }
+        const targetPage = clickedObject.userData.targetPage;
+        if (targetPage === 'project-single') {
+            window.openSingleProject(clickedObject.userData.projectId);
+        } else if (targetPage === 'photography-single') {
+            window.openGallery(clickedObject.userData.galleryId);
+        } else if (targetPage) {
             window.openModal(targetPage); 
         }
     }
 });
-
 window.addEventListener('click', (event) => {
 if (event.target.id === 'closemodal') {
         const modalOverlay = document.querySelector('.websitecontentmodal');
@@ -348,11 +478,94 @@ const blogPosts = [
     }
 ];
 
-const pageData = {
-    'photography': `<h2>Photography</h2><p>Lorem Ipsum Dolor Sit Amet</p>`,
-    'about': `<h2>About</h2><p>idk</p>`
-};
+function renderLocationIndex() {
+    return `
+        <button class="closebutton" id="closemodal">X</button>
+        <div class="blogcontent" style="text-align: center;">
+            <h2 class="blogtitle">My Location</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem;">I am based in Pune, Maharashtra, India.</p>
+            
+            <div style="border: 4px solid #b8b8b8; border-radius: 5px; overflow: hidden; height: 350px; background: #e8dcc7; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.04360434316!2d73.7805654!3d18.5246036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                    width="100%" height="100%" style="border:0; filter: sepia(0.8) contrast(1.1) opacity(0.8);" 
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    `;
+}
+function renderContactIndex() {
+    return `
+        <button class="closebutton" id="closemodal">X</button>
+        <div class="blogcontent" style="text-align: center; margin-top: 5vh;">
+            <h2 class="blogtitle">Contact</h2>
+            
+            <div style="display: flex; flex-direction: column; gap: 5px; flex-wrap: wrap;">
+                <a href="mailto:arnavnandurkar3@gmail.com">
+                    <button class="readmore" style="font-size: 1.5rem; padding: 15px 40px; text-decoration:none">
+                        Email: arnavnandurkar3@gmail.com →
+                    </button>
+                </a><br>
+                <a href="https://linkedin.com/in/arnav-nandurkar-700260324" target="_blank">
+                    <button class="readmore" style="font-size: 1.5rem; padding: 15px 40px; text-decoration:none">
+                        LinkedIn → 
+                    </button>
+                </a><br>
+                <a href="https://github.com/arnavnandurkar" target="_blank">
+                    <button class="readmore" style="font-size: 1.5rem; padding: 15px 40px; text-decoration:none">
+                        GitHub → 
+                    </button>
+                </a>
+            </div>
+        </div>
+    `;
+}
 
+function renderCreditsIndex() {
+    return `
+        <button class="closebutton" id="closemodal">X</button>
+        <div class="blogcontent" style="text-align: center;">
+            <h2 class="blogtitle">Credits</h2>
+            <h3 class="blogitem" style="font-weight:normal">This website was made using Three.js. It is open source and available on my GitHub profile.<br>
+            I made this 3D model in Blender with the help of the following assets:</h3>
+                <div style="text-align: left; max-width: 600px; margin: 0 auto; line-height: 1.8; font-size: 1rem;">
+                <ul style="list-style-type: none; padding: 0;">
+                    <li style="margin-bottom: 10px;"><strong>Rivendell Architecture:</strong> "Rivendell" (https://skfb.ly/6W6zz) by Mitro123 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Banners:</strong>"Banners" (https://skfb.ly/oSpQO) by Adam Little is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Pedestal:</strong>"Concrete Pedestal Photoscan" (https://skfb.ly/6ZHF6) by Martin Ibbett is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Arches:</strong>"Arch stones" (https://skfb.ly/oF9CB) by vadim92.34 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Shards of Narsil:</strong>"Shards Of Narsil" (https://skfb.ly/DuyX) by Martin Wörister is licensed under CC Attribution-NonCommercial-NoDerivs (http://creativecommons.org/licenses/by-nc-nd/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Narsil:</strong>"Narsil" (https://skfb.ly/6qVKQ) by grimren13 is licensed under Creative Commons Attribution-NonCommercial (http://creativecommons.org/licenses/by-nc/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Pen:</strong>"Old Pen" (https://skfb.ly/Oq9p) by djetty is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Stairs:</strong>"Stone_Stair_Case" (https://skfb.ly/oo87n) by GetDeadEntertainment is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Fountain:</strong>"Fountain" (https://skfb.ly/CKZN) by Horniman Museum is licensed under CC Attribution-NonCommercial-NoDerivs (http://creativecommons.org/licenses/by-nc-nd/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Stone Bridge:</strong>"Bridge" (https://skfb.ly/6pL87) by Nikolayy is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Mountains:</strong>"Mountain" (https://skfb.ly/6VXLv) by dario scaramuzza is licensed under CC Attribution-NonCommercial-NoDerivs (http://creativecommons.org/licenses/by-nc-nd/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Rocks:</strong>"Rocks" (https://skfb.ly/ooQzW) by gelmi.com.br is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Tree:</strong>"Tree" (https://skfb.ly/onxWu) by Epic_Tree_Store is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Trees:</strong>"Trees Low Poly" (https://skfb.ly/6YpAS) by Igor_K. is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Rocks:</strong>"Rocks set2" (https://skfb.ly/6AXuS) by DJMaesen is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Roof:</strong>"Seamless_Slate_Roof (Free Model)" (https://skfb.ly/oA96t) by Ataru Hinata is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Roof triangle:</strong>"Triangulium - obscure triangle object" (https://skfb.ly/psyMI) by Samuel F. Angrick-Johanns (Oneironauticus) is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Gazebo:</strong>"Gazebo (Sketchfab export)" (https://skfb.ly/ptoKp) by dbPieter is licensed under Creative Commons Attribution-ShareAlike (http://creativecommons.org/licenses/by-sa/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Circular carving:</strong>"Gothic window" (https://skfb.ly/AIJ6) by ramonscortanu is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>House lower door:</strong>"Castle Style Door" (https://skfb.ly/pt7Dn) by Visthétique is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>House upper door:</strong>"Door_ Wooden_18_MB" (https://skfb.ly/p8xVp) by Mehdi Shahsavan is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Sierpinski triangle:</strong>"Sierpinski Triangle" (https://skfb.ly/6SwQT) by wareFLO is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Window:</strong>"Window" (https://skfb.ly/o6oPy) by 捺/nuts is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Balcony:</strong>"Balcony" (https://skfb.ly/CxK7) by Xan San is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Oak trees:</strong>"oak trees" (https://skfb.ly/6TGAC) by DJMaesen is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Camera:</strong>"Vintage Camera Exakta VX 1954" (https://skfb.ly/ovH8G) by Ilgis (Dolgov) Fatykhov is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Scroll:</strong>"Scroll" (https://skfb.ly/op9LV) by Yuli.Enders is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Globe:</strong>"Globe" (https://skfb.ly/6TSsK) by padmadev2005 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Telephone:</strong>"Retro Telephone "Bordstelefon Tunnan"" (https://skfb.ly/o89y8) by Happymiel4 is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</li>
+                    <li style="margin-bottom: 10px;"><strong>Skybox image:</strong>"Quarry 04" Jarod Guest, Sergej Majboroda, polyhaven.com. CC0 license.</li>
+                </ul>
+            </div>
+        </div>
+    `;
+}
 function renderBlogIndex() {
     let html = `
         <h2 class="blogtitle">Blog</h2>
@@ -521,24 +734,31 @@ window.changeMainImage = function(src) {
 window.returnToGalleryIndex = function() {
     document.getElementById('modalcontent').innerHTML = renderPhotographyIndex();
 };
-
 window.openModal = function(pageName) {
     const modalOverlay = document.querySelector('.websitecontentmodal'); 
     const modalContent = document.getElementById('modalcontent');
-
     if (!modalOverlay || !modalContent) return;
-    
     if (pageName === 'blog') {
         modalContent.innerHTML = renderBlogIndex();
     } else if (pageName === 'photography') {
         modalContent.innerHTML = renderPhotographyIndex();
+    } else if (pageName === 'github') {
+        modalContent.innerHTML = renderGithubIndex();
+    } else if (pageName === 'literature') {
+        modalContent.innerHTML = renderprojectList("Literature", literaturePosts, 'literature');
+    } else if (pageName === 'other') {
+        modalContent.innerHTML = renderprojectList("Other Projects", otherPosts, 'other');
+    } else if (pageName === 'location') {
+        modalContent.innerHTML = renderLocationIndex(); 
+    } else if (pageName === 'contact') {
+        modalContent.innerHTML = renderContactIndex();
+    } else if (pageName === 'credits') {
+        modalContent.innerHTML = renderCreditsIndex();
     } else {
-        modalContent.innerHTML = pageData[pageName];
+        modalContent.innerHTML = '<p>Page not found.</p>';
     }
-    
     modalOverlay.style.display = 'block'; 
     document.body.style.overflow = 'hidden'; 
-
 };
 
 function disposeMaterial(mat) {
@@ -567,6 +787,119 @@ function createTooltip(id, text, x, y, z) {
     scene.add(labelObject);
     tooltips.push(labelObject); 
 }
+let githubRepos = [];
+fetchGitHubRepos();
+
+async function fetchGitHubRepos() {
+    try {
+        const response = await fetch(`https://api.github.com/users/arnavnandurkar/repos?sort=updated&per_page=10`);
+        if (!response.ok) throw new Error('Failed to fetch GitHub data');
+        
+        const repos = await response.json();
+        githubRepos = repos.map(repo => ({
+            id: repo.name,
+            title: repo.name.replace(/-/g, ' ').toUpperCase(),
+            description: repo.description || 'No description provided.',
+            link: repo.html_url,
+            stars: repo.stargazers_count,
+            branch: repo.default_branch 
+        }));
+    } catch (error) {
+        console.error("GitHub API Error:", error);
+    }
+}
+function renderGithubIndex() {
+    let html = `<h2 class="blogtitle">Software Projects: GitHub Repositories</h2><div class="list">`;
+    githubRepos.forEach(repo => {
+        html += `
+            <div class="blogitem">
+                <div class="blogmeta">★ ${repo.stars} Stars</div>
+                <h3>${repo.title}</h3>
+                <p>${repo.description}</p>
+                <button class="readmore" onclick="openGithubReadme('${repo.id}')">Read Documentation →</button>
+            </div>
+        `;
+    });
+    html += `</div>`;
+    return html;
+}
+
+window.openGithubReadme = async function(repoId) {
+    const repo = githubRepos.find(r => r.id === repoId);
+    if (!repo) return;
+    
+    const modalContent = document.getElementById('modalcontent');
+    modalContent.innerHTML = `<button class="back" onclick="openModal('github')">← Back to Repositories</button><div class="blogcontent" style="text-align: center;"><p>Loading README</p></div>`;
+    try {
+        const response = await fetch(`https://raw.githubusercontent.com/arnavnandurkar/${repo.id}/${repo.branch}/README.md`);
+        if (!response.ok) throw new Error("README not found.");
+        
+        const markdownText = await response.text();
+        const parsedHTML = marked.parse(markdownText);
+        
+        modalContent.innerHTML = `
+            <button class="back" onclick="openModal('github')">← Back to Repositories</button>
+            <div class="blogcontent">
+                <h2 class="blogtitle">${repo.title}</h2>
+                ${parsedHTML}
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="${repo.link}" target="_blank" style="text-decoration: none;">
+                        <button class="readmore" style="font-size: 1.5rem; padding: 10px 30px; border: 1px solid #777;">View on GitHub →</button>
+                    </a>
+                </div>
+            </div>
+        `;
+        document.querySelector('.websitecontentmodal').scrollTop = 0;
+    } catch (error) {
+        modalContent.innerHTML = `<button class="back" onclick="openModal('github')">← Back to Repositories</button><div class="blogcontent"><p style="text-align: center;">No README found for this repository.</p></div>`;
+    }
+};
+
+function renderprojectList(title, array, pageName) {
+    let html = `<h2 class="blogtitle">${title}</h2><div class="list">`;
+    array.forEach(post => {
+        html += `
+            <div class="blogitem">
+                <div class="blogmeta">${post.date}</div>
+                <h3>${post.title}</h3>
+                <p>${post.excerpt}</p>
+                <button class="readmore" onclick="openprojectArticle('${post.id}', '${pageName}')">Read →</button>
+            </div>
+        `;
+    });
+    html += `</div>`;
+    return html;
+}
+
+window.openprojectArticle = async function(articleId, sourcePage) {
+    const array = sourcePage === 'literature' ? literaturePosts : otherPosts;
+    const post = array.find(p => p.id === articleId);
+    if (!post) return;
+    
+    const modalContent = document.getElementById('modalcontent');
+    modalContent.innerHTML = `<button class="back" onclick="openModal('${sourcePage}')">← Back</button><p style="text-align:center;">Loading...</p>`;
+
+    try {
+        const response = await fetch(post.file);
+        if (!response.ok) throw new Error("File not found.");
+        const markdownText = await response.text();
+        const parsedHTML = marked.parse(markdownText);
+        
+        modalContent.innerHTML = `
+            <button class="back" onclick="openModal('${sourcePage}')">← Back</button>
+            <div class="blogcontent">
+                <h2 class="blogtitle">${post.title}</h2>
+                <div class="metadata">${post.date}</div>
+                ${parsedHTML}
+            </div>
+        `;
+        document.querySelector('.websitecontentmodal').scrollTop = 0;
+    } catch (error) {
+        modalContent.innerHTML = `<button class="back" onclick="openModal('${sourcePage}')">← Back</button><p style="text-align:center;">Error loading file.</p>`;
+    }
+}; 
+
+
 
 tourTimeline.to(camera.position, { x: 15, y: -78.7, z: -1119, ease: "power1.inOut" }, 0)
             .to(controls.target, { x: -19, y: -77, z: -1129, ease: "power1.inOut" }, 0)
@@ -592,8 +925,17 @@ tourTimeline.to(photoGroup.userData, { globalOpacity: 0, ease: "power1.inOut" },
 
 tourTimeline.to('#photo-prompt', { opacity: 0, ease: "power1.inOut" }, 5);
 
-tourTimeline.to(camera.position, { x: 0, y: -68, z: -1120, ease: "power1.inOut" }, 5)
-            .to(controls.target, { x: 0, y: -69, z: -1050, ease: "power1.inOut" }, 5);
+tourTimeline.to('#github-prompt', { opacity: 1, ease: "power1.inOut" }, 5);
+tourTimeline.to('#lit-prompt', { opacity: 1, ease: "power1.inOut" }, 5);
+tourTimeline.to('#other-prompt', { opacity: 1, ease: "power1.inOut" }, 5);
 
-tourTimeline.to(camera.position, { x: 28, y: -76, z: -1133, ease: "power1.inOut" }, 6)
-            .to(controls.target, { x: 38, y: -73, z: -1123, ease: "power1.inOut" }, 6);
+tourTimeline.to(camera.position, { x: 10, y: -68, z: -1108.6, ease: "power1.inOut" }, 5)
+            .to(controls.target, { x: 10, y: -69, z: -1100, ease: "power1.inOut" }, 5);
+
+tourTimeline.to('#github-prompt', { opacity: 0, ease: "power1.inOut" }, 6);
+tourTimeline.to('#lit-prompt', { opacity: 0, ease: "power1.inOut" }, 6);
+tourTimeline.to('#other-prompt', { opacity: 0, ease: "power1.inOut" }, 6);
+
+tourTimeline.to(camera.position, { x: 28, y: -75, z: -1133, ease: "power1.inOut" }, 6)
+            .to(controls.target, { x: 38, y: -75, z: -1125, ease: "power1.inOut" }, 6);
+tourTimeline.to('#insta-prompt, #credits-prompt, #location-prompt, #contact-prompt', { opacity: 1, ease: "power1.inOut" }, 6);

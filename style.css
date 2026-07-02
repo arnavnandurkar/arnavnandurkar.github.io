@@ -309,3 +309,55 @@ a:hover {
     background-color: #1f1f1f4b; 
     color: #fcfcfc;
 }
+
+@media (max-width: 768px) {
+    .blogcontent {
+        width: 95%;
+        padding: 20px;
+        margin-top: 10px;
+    }
+    .blogtitle {
+        font-size: 2.5rem;
+    }
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    #main-gallery-image {
+        max-height: 35vh; 
+    }
+    .readmore {
+        font-size: 1.2rem !important; 
+        padding: 10px 20px !important;
+    }
+
+    .bridge-label a {
+        font-size: 1.5rem;
+    }
+}
+.rotate-device-warning {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #111111;
+    color: #ffffff;
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Skyrim2', serif;
+}
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .rotate-device-warning {
+        display: flex;
+    }
+    .scroll-container {
+        display: none; 
+    }
+}
