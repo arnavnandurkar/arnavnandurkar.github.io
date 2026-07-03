@@ -7,4 +7,14 @@
   "devDependencies": {
     "vite": "^8.0.14"
   }
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  
+  "name": "arnavnandurkar",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
 }
