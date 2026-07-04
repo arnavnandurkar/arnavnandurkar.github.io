@@ -447,13 +447,15 @@ window.addEventListener('pointerup', (event) => {
         }
     }
 });
+
 window.addEventListener('pointerup', (event) => {
-    if (event.target.id === 'closemodal' || event.target.classList.contains('websitecontentmodal')) {
-        const modalOverlay = document.querySelector('.websitecontentmodal');
-        if (modalOverlay) {
-            modalOverlay.style.display = 'none';
-            document.body.style.overflow = 'auto'; 
-        }
+    const modalOverlay = document.querySelector('.websitecontentmodal');
+    if (!modalOverlay || modalOverlay.style.display !== 'block') return;
+    const clickedCloseBtn = event.target.id === 'closemodal' || event.target.classList.contains('closebutton') || event.target.classList.contains('back');
+    const clickedInsideContent = event.target.closest('.blogcontent');
+    if (clickedCloseBtn || !clickedInsideContent) {
+        modalOverlay.style.display = 'none';
+        document.body.style.overflow = 'auto'; 
     }
 });
 
