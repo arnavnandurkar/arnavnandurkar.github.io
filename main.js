@@ -447,8 +447,8 @@ window.addEventListener('pointerup', (event) => {
         }
     }
 });
-window.addEventListener('click', (event) => {
-if (event.target.id === 'closemodal') {
+window.addEventListener('pointerup', (event) => {
+    if (event.target.id === 'closemodal' || event.target.classList.contains('websitecontentmodal')) {
         const modalOverlay = document.querySelector('.websitecontentmodal');
         if (modalOverlay) {
             modalOverlay.style.display = 'none';

@@ -125,6 +125,7 @@ a:hover {
     overflow-y: auto;
     box-shadow: 0 10px 40px rgba(0,0,0,0.9);
     scrollbar-width: none;
+    overscroll-behavior: contain;
 
 }
 .websitecontentmodal::-webkit-scrollbar {
@@ -146,6 +147,7 @@ a:hover {
     line-height: 1.8;
     font-size: 1.15rem;
     font-family: 'IBM Plex Sans';
+    overscroll-behavior: contain;
 }
 
 .blogtitle {
